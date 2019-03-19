@@ -13,11 +13,11 @@ class Board
     @rows.each_with_index do |row, i_row|
       row.each_with_index do |tile, i_col|
         if i_row >= 2 && i_row <=5
-          tile = nil 
+          self[[i_row, i_col]] = "   "
         elsif i_row < 2
-          self[[i_row, i_col]] = "w" #Piece.new("White", self, [i_row, i_col])
+          self[[i_row, i_col]] = " w " #Piece.new("White", self, [i_row, i_col])
         else
-          self[[i_row, i_col]] = "b" #Piece.new("Black", self, [i_row, i_col])
+          self[[i_row, i_col]] = " b " #Piece.new("Black", self, [i_row, i_col])
         end
 
       end
