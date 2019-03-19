@@ -3,10 +3,22 @@ require_relative "piece.rb"
 class Board
   def initialize
     @rows = Array.new(8) {Array.new(8)}
-    @sentinel = NullPiece
+    @sentinel = NullPiece.new("blank", self, [])
   end
 
   def render
+    @rows.each_with_index do |row, i_row|
+      row.each_with_index do |tile, i_col|
+        if i_row >= 2 && i_row <=5
+          tile = nil 
+        elsif i_row < 2
+          tile = Piece.new("White", self, [i_row, i_col])
+        else
+          tile = Piece.new("Black", self, [i_row, i_col])
+        end
+
+      end
+    end
   end
 
   def [](pos)
