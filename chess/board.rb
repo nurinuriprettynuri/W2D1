@@ -1,9 +1,12 @@
-require_relative "piece.rb"
+require_relative "piece"
 
 class Board
+  attr_reader :rows
+
   def initialize
     @rows = Array.new(8) {Array.new(8)}
     @sentinel = NullPiece.new("blank", self, [])
+    self.render
   end
 
   def render
@@ -12,9 +15,9 @@ class Board
         if i_row >= 2 && i_row <=5
           tile = nil 
         elsif i_row < 2
-          tile = Piece.new("White", self, [i_row, i_col])
+          self[[i_row, i_col]] = "w" #Piece.new("White", self, [i_row, i_col])
         else
-          tile = Piece.new("Black", self, [i_row, i_col])
+          self[[i_row, i_col]] = "b" #Piece.new("Black", self, [i_row, i_col])
         end
 
       end
@@ -42,7 +45,7 @@ class Board
       raise "Nothing is at #{start_pos}."
     end
     self[end_pos] = self[start_pos]
-    self[start_pos] = @sentinel
+    self[start_pos] = nil
   end
 
   def valid_pos?(pos)
