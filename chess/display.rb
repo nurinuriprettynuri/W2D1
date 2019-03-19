@@ -1,3 +1,4 @@
+require "byebug"
 require "colorize"
 require_relative "cursor"
 require_relative "board"
@@ -12,22 +13,29 @@ class Display
   end
 
   def render
-    @board.rows.each do |row|
-      display_row = ""
-      row.each do |tile|
-        display_row += tile.colorize( :background => :white)
+    while true
+      system("clear")
+      a, b = @cursor.cursor_pos
+
+      @board.rows.each_with_index do |row, row_i|
+        display_row = ""
+        row.each_with_index do |tile, tile_i|
+          if row_i == a && tile_i == b
+                display_row += tile.colorize(:background => :blue)
+          elsif (row_i + tile_i).even?
+            display_row += tile.colorize(:background => :white)
+          else
+            display_row += tile.colorize(:background => :black)
+          end
+        end
+        puts display_row
       end
-      p display_row
+
+      @cursor.get_input
+
     end
   end
-
 end
 
-    # @board[@cursor.cursor_pos].colorize( :background => :yellow )
-    # while true
-    #   system("clear") 
-    #   old_pos = @cursor.cursor_pos
-    #   @cursor.get_input
-    #   @board[old_pos].colorize( :background => :white )
-    #   @board[@cursor.cursor_pos].colorize( :background => :yellow )
-    # end
+game = Display.new
+game.render

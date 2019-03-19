@@ -24,6 +24,8 @@ class Board
     end
   end
 
+
+
   def [](pos)
     a, b = pos
     @rows[a][b]
@@ -50,6 +52,6 @@ class Board
 
   def valid_pos?(pos)
     a, b = pos
-    (a <= 8 && a >= 0) && (b <= 8 && b >= 0)
+    (a < 8 && a >= 0) && (b < 8 && b >= 0)
   end
 end 
