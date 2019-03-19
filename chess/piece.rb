@@ -1,4 +1,5 @@
-require
+require_relative "stepable"
+require_relative "slideable"
 
 class Piece
   def initialize(color, board, pos)
