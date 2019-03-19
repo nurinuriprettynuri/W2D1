@@ -1,4 +1,5 @@
 require "io/console"
+require_relative "board"
 
 KEYMAP = {
   " " => :space,
@@ -93,6 +94,11 @@ class Cursor
   end
 
   def update_pos(diff)
+    a = @cursor_pos[0] + diff[0]
+    b = @cursor_pos[1] + diff[1]
 
+    if @board.valid_pos([a,b])
+      @cursor_pos = [a,b]
+    end
   end
 end
