@@ -5,12 +5,15 @@ module Slideable
   def horizontal_dirs
     all_possible_horizontal_moves = []
     HORIZONTAL_DIRS.each do |dir|
-      a = @cursor_pos[0] + dir[0]
-      b = @cursor_pos[1] + dir[1]
-      until !@board.valid_pos?([a,b]) || @board[a][b] != " " ##### CHANGE THIS FOR NULLPIECE
+      a = @pos[0] + dir[0]
+      b = @pos[1] + dir[1]
+      until !@board.valid_pos?([a,b]) && @board[a][b] == NULLPIECE
         all_possible_horizontal_moves << [a,b]
         a += dir[0]
         b += dir[1]
+      end
+      if @board[a][b].color == @color
+        all_possible_diagonal_moves << [a,b]
       end
     end
 
@@ -20,12 +23,15 @@ module Slideable
   def diagonal_dirs
     all_possible_diagonal_moves = []
     DIAGONAL_DIRS.each do |dir|
-      a = @cursor_pos[0] + dir[0]
-      b = @cursor_pos[1] + dir[1]
-      until !@board.valid_pos?([a,b]) || @board[a][b] != " " ##### CHANGE THIS FOR NULLPIECE
+      a = @pos[0] + dir[0]
+      b = @pos[1] + dir[1]
+      while @board.valid_pos?([a,b]) && @board[a][b] == NULLPIECE
         all_possible_diagonal_moves << [a,b]
         a += dir[0]
         b += dir[1]
+      end
+      if @board[a][b].color == @color
+        all_possible_diagonal_moves << [a,b]
       end
     end
 
